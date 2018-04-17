@@ -2,6 +2,8 @@
 import urllib2
 from bs4 import BeautifulSoup
 import pandas as pd
+import csv
+from datetime import datetime
 
 
 def main():
@@ -50,8 +52,18 @@ def main():
     #print (df)
 
     #df.to_csv('example.csv')
-    df.to_csv('path.csv', header=True, index=False, encoding='utf-8')
+    df.to_csv('data/path.csv', header=True, index=False, encoding='utf-8')
 
+    weather = "https://www.wunderground.com/hurricane/atlantic/2016/Post-Tropical-Cyclone-Alex"
+
+    page = urllib2.urlopen(weather)
+
+    # Parse the html in the 'page' variable, and store it in Beautiful Soup format
+    soup = BeautifulSoup(page, "html.parser")
+
+    right_table = soup.find('table', class_='responsive')
+
+    print right_table
 
 
 if __name__ == "__main__":

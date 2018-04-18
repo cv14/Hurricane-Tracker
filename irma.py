@@ -85,7 +85,7 @@ def irma():
     (t, wn, map_bg_img) = irma_setup()
 
     # your code to animate Irma here
-    file = open("data/irma.csv", "r")
+    file = open("data/Matthew.csv", "r")
 
     lines = file.readlines()
 

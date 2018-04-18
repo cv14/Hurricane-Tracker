@@ -54,7 +54,7 @@ def main():
     # #df.to_csv('example.csv')
     # df.to_csv('data/path.csv', header=True, index=False, encoding='utf-8')
 
-    weather = "https://www.wunderground.com/hurricane/atlantic/2016/Post-Tropical-Cyclone-Alex"
+    weather = "https://www.wunderground.com/hurricane/atlantic/2016/Matthew"
 
     page = urllib2.urlopen(weather)
 
@@ -62,6 +62,12 @@ def main():
     soup = BeautifulSoup(page, "html.parser")
 
     right_table = soup.find('table', class_='responsive data-table')
+
+    name = 'data/'
+    tempS = soup.h1.string
+    tempA = tempS.split()
+    name += tempA[len(tempA)- 1]
+    print name
 
     #print right_table
 
@@ -74,8 +80,6 @@ def main():
 
     for row in right_table.findAll("tr"):
         cells = row.findAll('td')
-        print len(cells)
-        print cells
         if len(cells) == 7:
             A.append(cells[0].find(text=True))
             B.append(cells[1].find(text=True))
@@ -94,7 +98,8 @@ def main():
     df['Pressure'] = F
 
     print (df)
-    df.to_csv('data/path.csv', header=True, index=False, encoding='utf-8')
+    name += '.csv'
+    df.to_csv(name, header=True, index=False, encoding='utf-8')
 
 
 if __name__ == "__main__":
